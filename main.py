@@ -1,9 +1,27 @@
 import os
+import json
 import random
 import discord
+import firebase_admin
+
 from discord.ext import commands
+from firebase_admin import credentials
+from firebase_admin import db
 
 TOKEN = os.getenv("DISCORD_TOKEN")
+
+firebase_json = json.loads(
+    os.getenv("FIREBASE_CREDENTIALS")
+)
+
+cred = credentials.Certificate(firebase_json)
+
+firebase_admin.initialize_app(
+    cred,
+    {
+        "databaseURL": "https://guess-the-imposter-8bac0-default-rtdb.asia-southeast1.firebasedatabase.app"
+    }
+)
 
 intents = discord.Intents.default()
 intents.message_content = True
