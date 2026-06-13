@@ -276,5 +276,20 @@ async def imposter(interaction: discord.Interaction):
         view=LobbyView()
     )
 
+@bot.tree.command(
+    name="testfirebase",
+    description="Test Firebase connection"
+)
+async def testfirebase(interaction: discord.Interaction):
+
+    ref = db.reference("test")
+
+    ref.set({
+        "status": "working"
+    })
+
+    await interaction.response.send_message(
+        "✅ Firebase write successful"
+    )
 
 bot.run(TOKEN)
