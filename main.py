@@ -10,6 +10,8 @@ from firebase_admin import db
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 
+BOARD_URL = "https://guess-imposter-board.vercel.app/"
+
 firebase_json = json.loads(
     os.getenv("FIREBASE_CREDENTIALS")
 )
@@ -185,9 +187,9 @@ class LobbyView(discord.ui.View):
             try:
 
                 if player_id == current_imposter:
-
                     await member.send(
-                        "🎭 YOU ARE THE IMPOSTER!\n\n"
+                        f"🎭 YOU ARE THE IMPOSTER!\n\n"
+                        f"Board:\n{BOARD_URL}\n\n"
                         "You do NOT know the secret word.\n"
                         "Watch the drawings and survive the vote."
                     )
@@ -197,6 +199,7 @@ class LobbyView(discord.ui.View):
                     await member.send(
                         f"🎨 SECRET WORD\n\n"
                         f"{current_word}\n\n"
+                        f"Board:\n{BOARD_URL}\n\n"
                         "Do not reveal the word directly."
                     )
 
