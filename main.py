@@ -282,14 +282,24 @@ async def imposter(interaction: discord.Interaction):
 )
 async def testfirebase(interaction: discord.Interaction):
 
-    ref = db.reference("test")
+    await interaction.response.defer()
 
-    ref.set({
-        "status": "working"
-    })
+    try:
 
-    await interaction.response.send_message(
-        "✅ Firebase write successful"
-    )
+        ref = db.reference("test")
+
+        ref.set({
+            "status": "working"
+        })
+
+        await interaction.followup.send(
+            "✅ Firebase write successful"
+        )
+
+    except Exception as e:
+
+        await interaction.followup.send(
+            f"❌ Error:\n{e}"
+        )
 
 bot.run(TOKEN)
